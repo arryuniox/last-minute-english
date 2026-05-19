@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Museum of My English Education</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <canvas id="museum"></canvas>
+
+    <main class="interface" aria-live="polite">
+      <section class="title-card" id="intro">
+        <p class="eyebrow">Graduation Exhibition</p>
+        <h1>A Museum of My English Education</h1>
+        <p>
+          Walk through four years of English as a changing museum of identity,
+          power, isolation, morality, and becoming human.
+        </p>
+        <button id="enterButton" type="button">Enter the Museum</button>
+      </section>
+
+      <section class="hud" id="hud" hidden>
+        <div>
+          <p class="eyebrow" id="wingLabel">Entrance Hall</p>
+          <h2 id="wingTitle">The Archive Opens</h2>
+          <p id="wingTheme">Stories are how we learn to survive ourselves.</p>
+        </div>
+        <div class="progress" aria-label="Museum progress">
+          <span id="progressFill"></span>
+        </div>
+      </section>
+
+      <section class="plaque" id="plaque" hidden>
+        <p class="eyebrow" id="plaqueWorks">Directory</p>
+        <h2 id="plaqueTitle">Begin</h2>
+        <p id="plaqueBody">
+          Use W/S or Arrow Up/Down to move. Drag or use A/D to look around.
+        </p>
+      </section>
+
+      <section class="exhibit-modal" id="exhibitModal" hidden>
+        <button class="icon-button" id="closeModal" type="button" aria-label="Close exhibit">X</button>
+        <p class="eyebrow" id="modalKicker">Exhibit</p>
+        <h2 id="modalTitle">Object</h2>
+        <p id="modalBody">Symbolism and role analysis appears here.</p>
+        <button id="enterRoomButton" type="button" hidden>Enter Room</button>
+      </section>
+
+      <section class="room-actions" id="roomActions" hidden>
+        <button id="exitRoomButton" type="button">Return to Wing</button>
+      </section>
+
+      <section class="final-reflection" id="finalReflection" hidden>
+        <p class="eyebrow">Final Exhibit</p>
+        <h2>The Player</h2>
+        <p>
+          After four years of studying these stories, the final question
+          remained the same: who are you becoming?
+        </p>
+      </section>
+    </main>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.164.1/build/three.module.js"
+        }
+      }
+    </script>
+    <script type="module" src="./src/museum.js"></script>
+  </body>
+</html>
