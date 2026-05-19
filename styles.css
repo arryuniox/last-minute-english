@@ -80,6 +80,16 @@ button {
   font: inherit;
   font-weight: 750;
   cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+button:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
 }
 
 .icon-button {
@@ -95,6 +105,12 @@ button {
   border-color: rgba(247, 241, 228, 0.18);
   background: rgba(247, 241, 228, 0.08);
   color: #f7f1e4;
+  font-size: 1rem;
+}
+
+.icon-button:hover {
+  background: rgba(247, 241, 228, 0.16);
+  transform: none;
 }
 
 .hud {
@@ -116,11 +132,11 @@ button {
 
 .hud p,
 .plaque p,
-.exhibit-modal p,
+.exhibit-modal p:not(.eyebrow),
 .final-reflection p {
   margin: 0;
   color: #d9d0c2;
-  line-height: 1.45;
+  line-height: 1.55;
 }
 
 .eyebrow {
@@ -157,21 +173,60 @@ button {
   border-radius: 8px;
 }
 
+/* ── Exhibit Modal ─────────────────────────────────────────────────────────── */
+
 .exhibit-modal {
   left: 50%;
   top: 50%;
   z-index: 5;
-  width: min(520px, calc(100vw - 36px));
+  width: min(540px, calc(100vw - 36px));
   padding: 22px;
-  border-radius: 8px;
+  border-radius: 10px;
   pointer-events: auto;
   transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-height: calc(100vh - 60px);
+  overflow: hidden;
 }
 
-.exhibit-modal p:not(.eyebrow) {
-  padding-right: 10px;
-  font-size: 1rem;
+#exhibitCanvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  border-radius: 6px;
+  margin: 10px 0 14px;
+  border: 1px solid rgba(247, 241, 228, 0.1);
+  background: #05070a;
 }
+
+.modal-body-scroll {
+  max-height: 220px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 6px;
+  margin-bottom: 8px;
+  /* custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(247, 241, 228, 0.25) transparent;
+}
+
+.modal-body-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.modal-body-scroll::-webkit-scrollbar-thumb {
+  background: rgba(247, 241, 228, 0.25);
+  border-radius: 99px;
+}
+
+.modal-body-scroll p {
+  font-size: 0.97rem;
+  line-height: 1.62;
+}
+
+/* ── Room Actions ──────────────────────────────────────────────────────────── */
 
 .room-actions {
   left: 50%;
@@ -222,5 +277,10 @@ button {
     top: auto;
     bottom: 18px;
     transform: translateX(-50%);
+    max-height: calc(100vh - 80px);
+  }
+
+  .modal-body-scroll {
+    max-height: 140px;
   }
 }

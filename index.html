@@ -40,15 +40,18 @@
       </section>
 
       <section class="exhibit-modal" id="exhibitModal" hidden>
-        <button class="icon-button" id="closeModal" type="button" aria-label="Close exhibit">X</button>
+        <button class="icon-button" id="closeModal" type="button" aria-label="Close exhibit">✕</button>
         <p class="eyebrow" id="modalKicker">Exhibit</p>
         <h2 id="modalTitle">Object</h2>
-        <p id="modalBody">Symbolism and role analysis appears here.</p>
+        <canvas id="exhibitCanvas" hidden></canvas>
+        <div class="modal-body-scroll">
+          <p id="modalBody">Symbolism and role analysis appears here.</p>
+        </div>
         <button id="enterRoomButton" type="button" hidden>Enter Room</button>
       </section>
 
       <section class="room-actions" id="roomActions" hidden>
-        <button id="exitRoomButton" type="button">Return to Wing</button>
+        <button id="exitRoomButton" type="button">← Return to Wing</button>
       </section>
 
       <section class="final-reflection" id="finalReflection" hidden>
