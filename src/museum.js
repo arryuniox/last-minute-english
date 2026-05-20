@@ -27,46 +27,75 @@ const exhibitCanvas = document.querySelector("#exhibitCanvas");
 // ─── WING DATA ───────────────────────────────────────────────────────────────
 const wings = [
   {
-    key: "Entrance Hall", title: "The Archive Opens",
+    key: "Entrance Hall",
+    title: "The Archive Opens",
     works: "Museum Directory",
-    theme: "Stories are how we learn to survive ourselves.",
-    body: "English is not a collection of separate books, but as a four-year path through identity, power, isolation, morality, and becoming human.",
-    z: 8,   color: 0xf2c57c, fog: 0x11100d,
+    theme: "Stories teach us how to survive ourselves.",
+    body:
+      "English is not a collection of disconnected texts, but a four-year progression through identity, morality, power, isolation, grief, and what it means to become human. The museum begins not with answers, but with questions.",
+    z: 8,
+    color: 0xf2c57c,
+    fog: 0x11100d,
   },
+
   {
-    key: "Grade 9 Wing", title: "Belonging and Dreams",
+    key: "Grade 9 Wing",
+    title: "Belonging and Dreams",
     works: "Kim's Convenience / A Raisin in the Sun",
-    theme: "Identity, family, belonging, and dreams.",
-    body: "The first exhibits feel grounded: dinner tables, shelves, framed rooms, and the pressure of wanting more while still needing a place to belong.",
-    z: -22,  color: 0xffb46b, fog: 0x1d1610,
+    theme: "Identity, family, belonging, and the desire for something greater.",
+    body:
+      "The first wing feels familiar: convenience stores, apartments, dinner tables, fluorescent lights. These exhibits explore what it means to search for belonging while balancing culture, ambition, family, and survival. Maturity begins with learning to observe the world and the people within it.",
+    z: -22,
+    color: 0xffb46b,
+    fog: 0x1d1610,
   },
+
   {
-    key: "Grade 10 Wing", title: "Fear, Survival, Collapse",
-    works: "Macbeth / Moon of the Crusted Snow",
-    theme: "Fear, survival, ambition, and social breakdown.",
-    body: "The museum darkens. Thrones, snow, candles, and forest corridors show how quickly order can become fragile when fear starts making decisions.",
-    z: -56,  color: 0x8fd8ff, fog: 0x0b1419,
+    key: "Grade 10 Wing",
+    title: "Fear, Survival, Collapse",
+    works: "Macbeth / Moon of the Crusted Snow / Mythology / Ethics Bowl",
+    theme: "Fear, morality, ambition, survival, and the fragility of order.",
+    body:
+      "The museum darkens. Candles flicker through castle corridors while distant storms bury entire communities in snow. Here, the exhibits examine how fear reshapes morality, how ambition corrupts judgment, and how fragile human systems become under pressure. The world is no longer simply observed — it is critically questioned.",
+    z: -56,
+    color: 0x8fd8ff,
+    fog: 0x0b1419,
   },
+
   {
-    key: "Grade 11 Wing", title: "Systems Under Pressure",
-    works: "Anthem / Things Fall Apart / Watchmen",
-    theme: "Society, control, ideology, and collapse of systems.",
-    body: "This wing fractures into propaganda, panels, screens, and broken architecture. The focus expands from personal identity to the systems that define, distort, or destroy people.",
-    z: -92,  color: 0x9db4ff, fog: 0x11131f,
+    key: "Grade 11 Wing",
+    title: "Systems Under Pressure",
+    works: "Anthem / Things Fall Apart / Watchmen / V for Vendetta",
+    theme: "Identity, ideology, control, resistance, and the collapse of certainty.",
+    body:
+      "This wing fractures into propaganda screens, comic panels, surveillance, and broken monuments. The focus expands beyond individuals toward the systems that shape them: governments, ideologies, traditions, and collective beliefs. The exhibits ask not only who we are, but whether identity can survive within systems built to control it.",
+    z: -92,
+    color: 0x9db4ff,
+    fog: 0x11131f,
   },
+
   {
-    key: "Grade 12 Wing", title: "Memory, Mortality, Responsibility",
+    key: "Grade 12 Wing",
+    title: "Memory, Mortality, Responsibility",
     works: "Brother / Frankenstein / Hamlet",
-    theme: "Mortality, isolation, memory, responsibility, and existential uncertainty.",
-    body: "The final wing turns inward: mirrors, rain, laboratory glass, subway echoes, and floating monologues. The question is no longer only what the texts mean, but what they reveal about responsibility and selfhood.",
-    z: -130, color: 0xb9f1df, fog: 0x0a1012,
+    theme: "Grief, responsibility, vulnerability, mortality, and existential uncertainty.",
+    body:
+      "The final academic wing turns inward. Rain taps against subway windows. Laboratory glass reflects fractured faces. Soliloquies echo through darkened halls. These exhibits confront grief, isolation, emotional vulnerability, and the consequences of avoiding responsibility. The question is no longer how the world works, but how a person continues living within it.",
+    z: -130,
+    color: 0xb9f1df,
+    fog: 0x0a1012,
   },
+
   {
-    key: "Final Room", title: "The Player Becomes the Exhibit",
+    key: "Final Room",
+    title: "The Player Becomes the Exhibit",
     works: "Graduation Reflection",
-    theme: "The museum ends by looking back at the person walking through it.",
-    body: "The final exhibit is not another book. It is the reader, changed by four years of stories about who we are, what we owe, and who we are becoming.",
-    z: -166, color: 0xffffff, fog: 0x050506,
+    theme: "Who are you..?",
+    body:
+      "The final exhibit is not another text. It is the person who walked through them. After four years of stories about identity, morality, power, grief, and uncertainty, the museum leaves behind a final realization: maturity is not certainty, but the ability to remain thoughtful, vulnerable, and human within an imperfect world.",
+    z: -166,
+    color: 0xffffff,
+    fog: 0x050506,
   },
 ];
 
@@ -81,6 +110,7 @@ const bookRooms = [
         title: "Store Counter", shape: "counter",
         position: [0, 0.65, -1.2],
         analysis: "The counter is both architecture and argument. Appa built his entire identity behind it over decades of daily labour — to sell the store would require selling a version of himself he cannot afford to lose. But the counter also creates a physical grammar of authority that makes real conversation difficult: you are either behind it, running things, or in front of it, being served. This spatial dynamic repeats in the family's emotional relationships, where the same person can feel both deeply loved and held at a distance. The play ultimately asks whether a legacy built on sacrifice can be received as a gift, or whether it always arrives feeling like debt.",
+        links: ["https://docs.google.com/document/d/1Adq2dbtzArWG9AVoINmrTzE9XvOGDMcnQEoBMz1xg9U/edit?usp=sharing"],
       },
       {
         title: "Family Photograph", shape: "frame",
@@ -108,11 +138,13 @@ const bookRooms = [
         title: "Insurance Check", shape: "paper",
         position: [0, 1.45, -1.4],
         analysis: "The insurance check does not arrive as opportunity — it arrives as grief made liquid. Walter Sr.'s death has been converted into a dollar amount, and the play's central question becomes what that number means for people who have been structurally denied the chance to accumulate wealth. Walter Lee wants it to become business and self-determination; Beneatha wants education and professional identity; Mama wants a home that cannot be taken away. The check does not create these desires — it forces them into contact with each other and with the reality that they cannot all be satisfied simultaneously. Its eventual misuse becomes the play's darkest moral test: how much does a dream cost when someone else paid for it with their life?",
+        links: ["https://docs.google.com/document/d/1OdzZ-W028P7KcaGabGfX6aYQpyic8SyF2wXdPWA1pdQ/edit?usp=sharing"]
       },
       {
         title: "Apartment Table", shape: "table",
         position: [2.4, 0.75, -1.8],
         analysis: "The table is where the Younger family is most fully itself — where arguments erupt because there is nowhere to avoid them, where meals are eaten in proximity that makes distance impossible, where every version of this family's dream gets stated and contested. It is also where survival is most literal, where the work of feeding people and keeping them together happens daily regardless of how any individual is feeling. Hansberry understood that cramped shared space creates a particular kind of emotional intensity: you cannot perform composure at a table this small. Every conversation here is involuntarily intimate. The table does not just host the play's drama — it produces it, by leaving no room for retreat.",
+        links: ["https://docs.google.com/document/d/1reUH8WxUiocWIeBgwSpAXAceCP4xCbMnzcQutAwqQn4/edit?usp=sharing"],
       },
     ],
   },
@@ -130,6 +162,7 @@ const bookRooms = [
         title: "Floating Dagger", shape: "dagger",
         position: [-2.4, 2.3, -2.8],
         analysis: "The dagger that appears to Macbeth is one of drama's earliest and most exact images of how imagination becomes morality's enemy. It is not real, but it is persuasive — it shows Macbeth a path toward what he wants and gives his desire a physical shape it did not have before. The vision externalises the moment when temptation stops being abstract and starts being a plan. Shakespeare locates the horror not in the supernatural but in the psychology: the dagger does not appear because the witches sent it, but because Macbeth is already the kind of person who would see it. The floating knife is a self-portrait of a mind that has decided but not yet admitted it.",
+        links: ["https://docs.google.com/document/d/1RQr9K0ZbZay6KjEnPjwUlt0JC5D4IMe6EnxyH__-nb4/edit?usp=sharing", "https://docs.google.com/presentation/d/1hI_tH7poZ1NUEdZVlJXiywIATq9XhQ5auiSb3MIEN9c/edit?usp=sharing"]
       },
       {
         title: "Blood Basin", shape: "basin",
@@ -161,6 +194,31 @@ const bookRooms = [
     ],
   },
   {
+    slug: "ethics-bowl", grade: "Grade 10",
+    title: "Ethics Bowl", side: 1, z: -58, color: 0xff9f66,
+    theme: "Debate, principles, and collective judgment in crisis.",
+    objects: (function(){
+      // arrange artifacts in an auditorium circle around the player
+      const items = [
+        { title: "Scoring Tablet", shape: "table", // Nudge forward to reduce clipping into nearby room
+          position: [0, 0.7, -1.2], analysis: "A record of argument and value judgement. Links to past projects.", links: ["https://docs.google.com/document/d/1S79DE34IvGcJbhtbqNqhM-NEETM4nlRNkoEn-HxvRdQ/edit?usp=sharing", "https://docs.google.com/document/d/1j0YnzM2y0j3N09iEW5o_TU3sax4Z9RABJgACEIlQKzU/edit?usp=sharing"] },
+
+        { title: "Team Binder", shape: "paper", position: [-1.8, 0.8, -0.9], analysis: "Notes, rules, and rhetorical strategies used in competition.", links: ["https://docs.google.com/document/d/1-FNr9eiD38ktqIaJrd2LoFho7nv2fa7D71WNVzvUqBQ/edit?usp=sharing"] },
+        { title: "Judge's Badge", shape: "badge", position: [1.8, 0.9, -0.9], analysis: "Authority, scoring, and the social power of evaluation.", links: ["https://drive.google.com/drive/folders/1FJJ1d5bNAQga7wu1A-DDjsRKNse6mznM?usp=drive_link"] },
+
+      ];
+      return items.map((it, i) => ({ ...it, position: [it.position[0], it.position[1], it.position[2]] }));
+    })(),
+  },
+  {
+    slug: "mythology", grade: "Grade 10",
+    title: "Mythology", side: -1, z: -68, color: 0x8fb3ff,
+    theme: "Foundations of story: masks, constellations, and repeating heroes.",
+    objects: [
+      { title: "Fragmented Tablet", shape: "paper", position: [0.8, 1.2, -2.1], analysis: "Floating shards of story, layered with translation and re-telling.", links: ["https://drive.google.com/file/d/1zjDdeVtXMcgmHH8LsiUTsPdb4saXJL0c/view?usp=sharing"] },
+    ],
+  },
+  {
     slug: "anthem", grade: "Grade 11",
     title: "Anthem", side: -1, z: -82, color: 0xa8b8ff,
     theme: "Individual identity emerges as resistance against enforced sameness.",
@@ -179,6 +237,7 @@ const bookRooms = [
         title: "Tunnel Desk", shape: "desk",
         position: [2.4, 0.85, -1.8],
         analysis: "Equality 7-2521's hidden workspace represents the survival of curiosity in a system designed to prevent it. The tunnel is not just a place to conduct experiments — it is proof that private thought cannot be fully suppressed even by a society that has organised itself around that suppression. The desk is where the individual exists before it has a word for itself, before 'I' has been recovered. Rand is making a point about the unkillability of the creative impulse: even under total collective pressure, the mind that wants to know something will find a way to pursue the question. The hidden desk is optimistic in this sense — it insists that intellectual freedom is not a social construction but something more fundamental, something that asserts itself in tunnels when it cannot assert itself above ground.",
+        links: ["https://docs.google.com/document/d/1JOCj8CnaK24nM3s3GtWGdNcbyLX_oyuPTCIf53jqSik/edit?usp=sharing", "https://docs.google.com/document/d/1TS3MxHQ7udNZVdqSctUyZGIz9ZsQ3O8RpX_4bQaxxRc/edit?usp=sharing"]
       },
     ],
   },
@@ -218,11 +277,13 @@ const bookRooms = [
         title: "Comic Panels", shape: "panels",
         position: [-2.8, 2.3, -3.4],
         analysis: "Watchmen's most radical argument is formal: the comic-book panel itself is a frame that constrains and directs understanding. By fragmenting its narrative into competing perspectives, parallel timelines, embedded texts, and unreliable narrators, Moore insists that no single panel, no single character's account, contains the whole truth. The exhibit of panels asks viewers to do what the novel trains readers to do: understand that information only exists within a frame, and that the frame is always chosen by someone with interests. This is the epistemological heart of Watchmen — heroism, history, and morality are not objective facts but constructions. The panels are not just a formal technique; they are the argument itself, embedded in the medium.",
+        links: ["https://docs.google.com/document/d/1FYczvkQRBG4yfO2SVJlUPGiQe2OW3V_k5Hwhi9hXjhU/edit?usp=sharing"],
       },
       {
         title: "Clock at Midnight", shape: "clock",
         position: [2.8, 2.1, -3.1],
         analysis: "The Doomsday Clock operates throughout Watchmen as both literal countdown and moral pressure. Its near-midnight position insists that the characters are making decisions under conditions of extremity — that the stakes of their choices are not personal but civilisational. Moore uses this pressure to test each character's moral framework to destruction: Rorschach maintains his absolute ethics even when they become self-destructive; Veidt decides the scale of the threat justifies any means; Dr. Manhattan stops caring about the difference. The clock does not simply threaten nuclear war — it is the device by which the novel examines what people are willing to do when they believe the alternative is annihilation. The problem is that everyone at midnight believes they are the one who understands the situation clearly enough to act.",
+        links: ["https://drive.google.com/file/d/1fD6qjWDgTUOlmr5VBeTw33aQvXZkUjEh/view?usp=sharing"],
       },
     ],
   },
@@ -257,11 +318,13 @@ const bookRooms = [
         title: "Laboratory Table", shape: "lab",
         position: [0, 0.95, -1.7],
         analysis: "Victor Frankenstein's laboratory is where ambition becomes pathology. The table is where he does the work — methodical, sustained, brilliant work — but the work is always separated from its implications. Victor never thinks past the achievement to the responsibility: he wants to be the one who animated life, and the animated life's subsequent experience of existing is not part of his calculation. The table is therefore a symbol of creation without ethics, of science performed as self-actualisation rather than as obligation. Mary Shelley was writing at the beginning of industrial modernity, when the relationship between scientific capability and moral accountability was becoming urgent in exactly the ways it remains urgent now. The laboratory table is still being used, and the question it asks has not been answered.",
+        links: ["https://drive.google.com/file/d/1yTCV878CQ4Egl3eGlvsDqj7g6fPsS_xJ/view?usp=sharing"],
       },
       {
         title: "Glass Heart", shape: "heart",
         position: [-2.5, 2.15, -2.9],
         analysis: "The Creature's capacity for feeling is the novel's most persistent moral argument. He experiences loneliness, desire for connection, aesthetic pleasure in music and nature, grief at rejection — all the apparatus of a full emotional life — and the novel insists that these experiences are as real and valid as any human's. The glass heart makes this visible and fragile: the Creature's emotional interior is not protected by the social recognition that would make it legible to others. He is treated as a monster because he looks like one, and the irony Shelley pursues throughout is that Victor, who looks human, behaves far more monstrously. The question the glass heart poses is where humanity actually lives — in biology, in social recognition, or in the experience of feeling itself.",
+        links: ["https://docs.google.com/document/d/1T6PmrVK64Nfakn4rHwi5u9j7i7XR5hdWJr8QbkyX7pA/edit?usp=sharing"],
       },
       {
         title: "Ice Wall", shape: "ice",
@@ -279,6 +342,7 @@ const bookRooms = [
         title: "Skull", shape: "skull",
         position: [0, 1.35, -2.1],
         analysis: "The skull in the graveyard scene strips Hamlet's existential problem of all decoration. Yorick's skull is specific — this was a person Hamlet knew, who had wit and warmth and particular qualities — and it has been reduced to a container, an object that can be held in a hand and examined. The scene forces confrontation with the endpoint: once you know how Yorick ends up, every account of his life is retrospective, coloured by the skull's knowledge. Hamlet's famous delay is partly the paralysis of someone who understands mortality too clearly — he knows that action ends in death as surely as inaction does, and that knowledge makes decisive movement feel less obviously necessary. The skull is what Hamlet already knew before he picked it up. Holding it is just admitting that he knows it.",
+        links: ["https://drive.google.com/file/d/1F8NNsiOwzfH-b_u183Edm1LdhQRK4Q1k/view?usp=sharing"],
       },
       {
         title: "Ghost Curtain", shape: "curtain",
@@ -297,16 +361,19 @@ const bookRooms = [
 // ─── MAIN SCENE SETUP ────────────────────────────────────────────────────────
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x07090b);
-scene.fog = new THREE.FogExp2(0x11100d, 0.018);
+scene.fog = new THREE.FogExp2(0x11100d, 0.032);
 
 const camera = new THREE.PerspectiveCamera(68, innerWidth / innerHeight, 0.1, 600);
 camera.position.set(0, 2.1, 13);
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setPixelRatio(Math.min(devicePixelRatio, 1.25));
 renderer.setSize(innerWidth, innerHeight);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
 
 const museum = new THREE.Group();
 scene.add(museum);
@@ -318,10 +385,16 @@ const clickable  = [];
 // shared geometry — avoids creating a new BufferGeometry per box
 const _unitBox = new THREE.BoxGeometry(1, 1, 1);
 
-scene.add(new THREE.HemisphereLight(0xf7f1e4, 0x171614, 0.65));
+scene.add(new THREE.HemisphereLight(0xf7f1e4, 0x171614, 1.2));
+scene.add(new THREE.AmbientLight(0xffffff, 0.25));
 
-const playerLight = new THREE.PointLight(0xf7f1e4, 1.8, 28, 1.8);
+const playerLight = new THREE.PointLight(0xf7f1e4, 2.8, 28, 1.8);
 playerLight.position.set(0, 4, 8);
+playerLight.castShadow = true;
+playerLight.shadow.mapSize.set(1024, 1024);
+playerLight.shadow.bias = -0.003;
+playerLight.shadow.camera.near = 0.5;
+playerLight.shadow.camera.far = 60;
 scene.add(playerLight);
 
 // ─── SHARED MATERIALS ────────────────────────────────────────────────────────
@@ -411,12 +484,14 @@ eCamera.lookAt(0, 0, 0);
 
 const eRenderer = new THREE.WebGLRenderer({ canvas: exhibitCanvas, antialias: true });
 eRenderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-eRenderer.shadowMap.enabled = true;
+// Performance: disable shadows for exhibit preview renderer
+eRenderer.shadowMap.enabled = false;
+
 eRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
 eRenderer.setSize(480, 240);
 
-eScene.add(new THREE.HemisphereLight(0xf5f0e8, 0x141210, 0.9));
-const eKey = new THREE.SpotLight(0xfff4e0, 4, 25, Math.PI / 7, 0.5, 1.5);
+eScene.add(new THREE.HemisphereLight(0xf5f0e8, 0x141210, 1.2));
+const eKey = new THREE.SpotLight(0xfff4e0, 5, 25, Math.PI / 7, 0.5, 1.5);
 eKey.position.set(2.5, 5, 4); eKey.castShadow = true;
 eScene.add(eKey);
 const eFill = new THREE.PointLight(0x88aaff, 0.7, 15);
@@ -738,8 +813,12 @@ function buildBookRooms() {
       material: new THREE.MeshBasicMaterial({ map: makeRoomTexture(room) }),
     });
 
-    const light = new THREE.PointLight(room.color, 2.2, 17, 1.5);
-    light.position.set(x, 4.2, room.z - 1.7); museum.add(light);
+    const light = new THREE.PointLight(room.color, 3.0, 17, 1.5);
+    light.position.set(x, 4.2, room.z - 1.7);
+    light.castShadow = true;
+    light.shadow.mapSize.set(512, 512);
+    light.shadow.bias = -0.003;
+    museum.add(light);
 
     for (const obj of room.objects) addRoomObject(room, obj);
   }
@@ -761,6 +840,7 @@ function addRoomObject(room, obj) {
     kicker: room.title,
     body: obj.analysis,
     shape: obj.shape,
+    links: obj.links || [],
   };
   let mesh;
 
@@ -842,7 +922,7 @@ function buildArchitecture() {
   }
 
   for (const wing of wings) {
-    const light = new THREE.PointLight(wing.color, 2.35, 30, 1.4);
+    const light = new THREE.PointLight(wing.color, 3.0, 30, 1.4);
     light.position.set(0, 4.8, wing.z); light.castShadow = true; museum.add(light);
     addBox({ position: [-6.6, 2.1, wing.z], scale: [0.35, 3.5, 10], material: new THREE.MeshStandardMaterial({ color: wing.color, roughness: 0.5, transparent: true, opacity: 0.25 }) });
     addBox({ position: [ 6.6, 2.1, wing.z], scale: [0.35, 3.5, 10], material: new THREE.MeshStandardMaterial({ color: wing.color, roughness: 0.5, transparent: true, opacity: 0.25 }) });
@@ -909,10 +989,13 @@ function buildGrade12() {
 
 function buildFinalRoom() {
   const z = -166;
-  addPlane({ position: [0, 2.75, z - 7.5], rotation: [0, 0, 0], scale: [8.5, 4.8, 1], material: darkGlass });
-  const silMat = new THREE.MeshStandardMaterial({ color: 0x030303, roughness: 0.4 });
-  const sil = new THREE.Mesh(new THREE.CapsuleGeometry(0.42, 1.35, 8, 18), silMat);
-  sil.position.set(0, 1.35, z - 7.15); sil.scale.set(1, 1.25, 0.22); museum.add(sil);
+  // Final Room: almost empty white void
+  const whiteMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  addPlane({ position: [0, 2.75, z - 7.5], rotation: [0, 0, 0], scale: [12, 8, 1], material: whiteMat });
+  // subtle floor to ground the player
+  addBox({ position: [0, -0.12, z - 7.5], scale: [8, 0.22, 12], material: new THREE.MeshStandardMaterial({ color: 0xf7f7f7, roughness: 0.95 }), castShadow: false });
+  // brighter ambient light for the white void
+  const bright = new THREE.PointLight(0xffffff, 2.8, 40, 1.2); bright.position.set(0, 6, z - 7.5); museum.add(bright);
   addPlaque3D(wings[5], 0, z - 8.05, 0);
 }
 
@@ -925,6 +1008,17 @@ buildGrade12();
 buildBookRooms();
 buildFinalRoom();
 addPlaque3D(wings[0], 0, 3.5, 0);
+
+// Enable receiveShadow on meshes and lightly tune castShadow where appropriate
+museum.traverse(c => {
+  if (c.isMesh) {
+    c.receiveShadow = true;
+    // don't force all meshes to cast shadows (expensive) but enable where already set
+    if (c.material && c.material.emissive && c.material.emissiveIntensity > 0.01) {
+      c.castShadow = true;
+    }
+  }
+});
 
 // ─── INPUT STATE ─────────────────────────────────────────────────────────────
 const keys   = new Set();
@@ -943,8 +1037,14 @@ let lastTime    = performance.now();
 
 // ─── EVENT LISTENERS ──────────────────────────────────────────────────────────
 enterButton.addEventListener("click", () => {
-  started = true; intro.hidden = true; hud.hidden = false; plaque.hidden = false; updateUi(wings[0]);
+  started = true;
+  intro.hidden = true;
+  hud.hidden = false;
+  plaque.hidden = false;
+  updateUi(wings[0]);
 });
+
+
 closeModal.addEventListener("click", hideModal);
 enterRoomBtn.addEventListener("click", () => { if (pendingRoom) enterRoom(pendingRoom); hideModal(); });
 exitRoomBtn.addEventListener("click", exitRoom);
@@ -953,8 +1053,13 @@ window.addEventListener("keydown", e => {
   keys.add(e.key.toLowerCase());
   const n = Number(e.key);
   if (started && Number.isInteger(n) && n >= 1 && n <= wings.length) jumpToWing(n - 1);
-  if (e.key === "Escape") { hideModal(); if (activeRoom) exitRoom(); }
+  if (e.key === "escape") {
+    hideModal();
+    if (activeRoom) exitRoom();
+  }
 });
+
+
 window.addEventListener("keyup", e => keys.delete(e.key.toLowerCase()));
 
 window.addEventListener("pointerdown", e => {
@@ -967,9 +1072,19 @@ window.addEventListener("pointerup", e => {
 });
 window.addEventListener("pointermove", e => {
   if (!dragging || !started) return;
-  yaw -= (e.clientX - lastX) * 0.004; lastX = e.clientX;
+  yaw -= (e.clientX - lastX) * 0.004;
+  lastX = e.clientX;
 });
-window.addEventListener("wheel", e => { if (started) targetZ += e.deltaY * -0.035; }, { passive: true });
+
+
+// Mousewheel: disabled (prevents zoom/moving).
+// Keep keyboard movement (W/S / arrows) for locomotion.
+window.addEventListener("wheel", e => {
+  if (started) e.preventDefault();
+}, { passive: false });
+
+
+
 
 // ─── SCENE CLICK ─────────────────────────────────────────────────────────────
 function handleSceneClick(e) {
@@ -980,7 +1095,8 @@ function handleSceneClick(e) {
   pointer.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
 
   raycaster.setFromCamera(pointer, camera);
-  const hits = raycaster.intersectObjects(clickable, true);
+  const hits = raycaster.intersectObjects(clickable, false);
+
   if (!hits.length) return;
 
   const hit = hits.find(h => h.object.userData?.interaction) || hits[0];
@@ -989,6 +1105,76 @@ function handleSceneClick(e) {
 
   showModal(interaction);
 }
+
+// New: center-crosshair interaction prompt while pointer-locked.
+// Uses a ray from the screen center instead of relying on pointer location.
+const interactPrompt = document.createElement('div');
+interactPrompt.style.position = 'fixed';
+interactPrompt.style.left = '50%';
+interactPrompt.style.top = '50%';
+interactPrompt.style.transform = 'translate(-50%, -50%)';
+interactPrompt.style.zIndex = '6';
+interactPrompt.style.padding = '10px 14px';
+interactPrompt.style.borderRadius = '999px';
+interactPrompt.style.pointerEvents = 'none';
+interactPrompt.style.background = 'rgba(7, 9, 11, 0.62)';
+interactPrompt.style.border = '1px solid rgba(247, 241, 228, 0.18)';
+interactPrompt.style.color = '#f7f1e4';
+interactPrompt.style.fontWeight = '800';
+interactPrompt.style.letterSpacing = '0.02em';
+interactPrompt.style.fontSize = '0.95rem';
+interactPrompt.style.backdropFilter = 'blur(14px)';
+interactPrompt.hidden = true;
+document.body.appendChild(interactPrompt);
+
+let currentGazeInteraction = null;
+function updateGazePrompt() {
+  if (!started || exhibitModal.hidden === false) {
+    currentGazeInteraction = null;
+    interactPrompt.hidden = true;
+    return;
+  }
+
+  // We no longer do pointer-locked look mode; hide by default.
+  interactPrompt.hidden = true;
+  currentGazeInteraction = null;
+  return;
+
+
+  // Ray from screen center
+  pointer.set(0, 0);
+  raycaster.setFromCamera(pointer, camera);
+
+  // Non-recursive is fine because `clickable` already contains the interactive meshes.
+  const hits = raycaster.intersectObjects(clickable, false);
+  if (!hits.length) {
+    currentGazeInteraction = null;
+    interactPrompt.hidden = true;
+    return;
+  }
+
+  const hit = hits.find(h => h.object.userData?.interaction) || hits[0];
+  const interaction = hit.object.userData?.interaction || hit.object.parent?.userData?.interaction;
+
+  if (!interaction) {
+    currentGazeInteraction = null;
+    interactPrompt.hidden = true;
+    return;
+  }
+
+  currentGazeInteraction = interaction;
+
+  const verb = interaction.kind === 'door' ? 'Door' : 'Exhibit';
+  interactPrompt.textContent = `${verb} — click to interact`;
+  interactPrompt.hidden = false;
+}
+
+// When pointer-locked, clicks don't have reliable clientX/clientY.
+// So we trigger interaction using the gaze ray result.
+// (pointer-locked gaze interaction removed) 
+
+
+
 
 // ─── UI FUNCTIONS ─────────────────────────────────────────────────────────────
 function getNearestWing(z) {
@@ -1014,12 +1200,44 @@ function updateUi(wing) {
   finalRef.hidden = wing.key !== "Final Room";
 }
 
-function showModal({ title, kicker, body, room, kind, shape }) {
+function showModal(interaction) {
+  const { title, kicker, body, room, kind, shape, links } = interaction;
   pendingRoom = kind === "door" ? room : null;
   modalKicker.textContent = kicker;
   modalTitle.textContent  = title;
-  modalBody.textContent   = body;
   enterRoomBtn.hidden     = kind !== "door";
+
+  // render body and links (if any)
+  modalBody.innerHTML = "";
+  const p = document.createElement("p"); p.textContent = body; modalBody.appendChild(p);
+  if (links && links.length) {
+    const h = document.createElement("h4"); h.textContent = "Related Works:"; modalBody.appendChild(h);
+    const ul = document.createElement("ul");
+    for (const l of links) {
+      const li = document.createElement("li");
+      const href = (typeof l === "string") ? (/^https?:\/\//i.test(l) ? l : `https://${l}`) : (l.href || l.url || "#");
+      const label = (typeof l === "string") ? l : (l.label || l.title || l.href || l.url);
+      const a = document.createElement("a");
+      a.href = href;
+      a.textContent = label;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      li.appendChild(a);
+      ul.appendChild(li);
+    }
+    modalBody.appendChild(ul);
+    const edit = document.createElement("button"); edit.textContent = "Edit Links";
+    edit.addEventListener("click", () => {
+      const raw = prompt("Enter comma-separated links for this exhibit:", (interaction.links || []).join(","));
+      if (raw !== null) {
+        const arr = raw.split(",").map(s => s.trim()).filter(Boolean);
+        interaction.links = arr; // persists on mesh.userData.interaction
+        // re-open modal to refresh links display
+        showModal(interaction);
+      }
+    });
+    modalBody.appendChild(edit);
+  }
 
   // scroll to top each open
   const scroll = document.querySelector(".modal-body-scroll");
@@ -1115,9 +1333,12 @@ function tick(now) {
   camera.rotation.set(0, smoothYaw, 0);
   playerLight.position.set(camera.position.x, 3.7, camera.position.z + 1.8);
 
+  updateGazePrompt();
+
   renderer.render(scene, camera);
   requestAnimationFrame(tick);
 }
+
 
 window.addEventListener("resize", () => {
   camera.aspect = innerWidth / innerHeight;
