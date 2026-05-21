@@ -373,7 +373,8 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.0;
+renderer.toneMappingExposure = 2.6;
+renderer.setClearColor(0x0f1012);
 
 const museum = new THREE.Group();
 scene.add(museum);
@@ -385,25 +386,76 @@ const clickable  = [];
 // shared geometry — avoids creating a new BufferGeometry per box
 const _unitBox = new THREE.BoxGeometry(1, 1, 1);
 
-scene.add(new THREE.HemisphereLight(0xf7f1e4, 0x171614, 1.2));
-scene.add(new THREE.AmbientLight(0xffffff, 0.25));
+const hemisphereLight = new THREE.HemisphereLight(0xf7f1e4, 0x171614, 2.0);
+scene.add(hemisphereLight);
+const ambientLight = new THREE.AmbientLight(0xffffff, 1.1);
+scene.add(ambientLight);
 
-const playerLight = new THREE.PointLight(0xf7f1e4, 2.8, 28, 1.8);
+const keyLight = new THREE.DirectionalLight(0xfff4e8, 2.8);
+keyLight.position.set(-8, 20, 12);
+keyLight.castShadow = true;
+keyLight.shadow.mapSize.set(1024, 1024);
+keyLight.shadow.camera.near = 0.5;
+keyLight.shadow.camera.far = 100;
+scene.add(keyLight);
+
+const fillLight = new THREE.PointLight(0xa8b8ff, 1.6, 80, 2);
+fillLight.position.set(8, 5, 5);
+scene.add(fillLight);
+
+const rimLight = new THREE.PointLight(0xd8e8ff, 0.9, 90, 2);
+rimLight.position.set(0, 8, -14);
+scene.add(rimLight);
+
+const playerLight = new THREE.PointLight(0xffffff, 8.0, 75, 1.5);
 playerLight.position.set(0, 4, 8);
 playerLight.castShadow = true;
 playerLight.shadow.mapSize.set(1024, 1024);
 playerLight.shadow.bias = -0.003;
 playerLight.shadow.camera.near = 0.5;
-playerLight.shadow.camera.far = 60;
+playerLight.shadow.camera.far = 100;
 scene.add(playerLight);
+
+// ─── LIGHTING CONFIGURATIONS BY WING MOOD ──────────────────────────────────────
+const lightingProfiles = {
+  "Entrance Hall": { hemiSky: 0xf7f1e4, hemiGnd: 0x2a2420, hemiIntensity: 2.0, ambIntensity: 0.9, playerIntensity: 6.5, keyIntensity: 3.4, fillIntensity: 1.8, rimIntensity: 1.1 },
+  "Grade 9 Wing": { hemiSky: 0xffc570, hemiGnd: 0x4a3a2a, hemiIntensity: 2.0, ambIntensity: 1.0, playerIntensity: 6.8, keyIntensity: 3.6, fillIntensity: 2.0, rimIntensity: 1.2 },
+  "Grade 10 Wing": { hemiSky: 0x7fa8d1, hemiGnd: 0x1a2a3a, hemiIntensity: 1.8, ambIntensity: 0.9, playerIntensity: 6.0, keyIntensity: 3.2, fillIntensity: 1.7, rimIntensity: 1.0 },
+  "Grade 11 Wing": { hemiSky: 0x8fa8dd, hemiGnd: 0x1a1a2a, hemiIntensity: 1.65, ambIntensity: 0.8, playerIntensity: 5.2, keyIntensity: 3.0, fillIntensity: 1.5, rimIntensity: 0.9 },
+  "Grade 12 Wing": { hemiSky: 0x9dd4d0, hemiGnd: 0x0a1a1a, hemiIntensity: 1.5, ambIntensity: 0.75, playerIntensity: 4.6, keyIntensity: 2.8, fillIntensity: 1.2, rimIntensity: 0.8 },
+  "Final Room": { hemiSky: 0xffffff, hemiGnd: 0xd0d0d0, hemiIntensity: 2.8, ambIntensity: 1.6, playerIntensity: 8.0, keyIntensity: 3.8, fillIntensity: 2.4, rimIntensity: 1.4 },
+};
+
+const lightingState = {
+  hemiSkyTarget: new THREE.Color(0xf7f1e4),
+  hemiGndTarget: new THREE.Color(0x171614),
+  hemiIntTarget: 1.8,
+  ambIntTarget: 0.75,
+  playerIntTarget: 5.4,
+  keyIntTarget: 2.4,
+  fillIntTarget: 1.1,
+  rimIntTarget: 0.7,
+};
+
+function updateLighting(wing) {
+  const profile = lightingProfiles[wing.key] || lightingProfiles["Entrance Hall"];
+  lightingState.hemiSkyTarget.setHex(profile.hemiSky);
+  lightingState.hemiGndTarget.setHex(profile.hemiGnd);
+  lightingState.hemiIntTarget = profile.hemiIntensity;
+  lightingState.ambIntTarget = profile.ambIntensity;
+  lightingState.playerIntTarget = profile.playerIntensity;
+  lightingState.keyIntTarget = profile.keyIntensity;
+  lightingState.fillIntTarget = profile.fillIntensity;
+  lightingState.rimIntTarget = profile.rimIntensity;
+}
 
 // ─── SHARED MATERIALS ────────────────────────────────────────────────────────
 const floorMat   = new THREE.MeshStandardMaterial({ color: 0x171411, roughness: 0.82, metalness: 0.03 });
 const wallMat    = new THREE.MeshStandardMaterial({ color: 0x24211c, roughness: 0.88 });
 const ceilMat    = new THREE.MeshStandardMaterial({ color: 0x101112, roughness: 0.95 });
 const brassMat   = new THREE.MeshStandardMaterial({ color: 0xb98d4f, roughness: 0.38, metalness: 0.46 });
-const darkGlass  = new THREE.MeshPhysicalMaterial({
-  color: 0x0b1013, metalness: 0.4, roughness: 0.16, transmission: 0.08, clearcoat: 1,
+const darkGlass  = new THREE.MeshStandardMaterial({
+  color: 0x0b1013, metalness: 0.4, roughness: 0.16, transparent: true, opacity: 0.28,
 });
 
 // ─── MAIN SCENE HELPERS ──────────────────────────────────────────────────────
@@ -547,7 +599,7 @@ function buildExhibitMesh(shape, colorHex) {
   const mat  = new THREE.MeshStandardMaterial({ color: colorHex, roughness: 0.38, metalness: 0.14, emissive: colorHex, emissiveIntensity: 0.12 });
   const dark = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.6 });
   const pale = new THREE.MeshStandardMaterial({ color: 0xe6d9c0, roughness: 0.7 });
-  const glass = new THREE.MeshPhysicalMaterial({ color: 0xadd8e6, roughness: 0.08, metalness: 0.05, transmission: 0.65, transparent: true, opacity: 0.55 });
+  const glass = new THREE.MeshStandardMaterial({ color: 0xadd8e6, roughness: 0.08, metalness: 0.05, transparent: true, opacity: 0.55 });
   const green = new THREE.MeshStandardMaterial({ color: 0x3d7042, roughness: 0.65 });
   const soil  = new THREE.MeshStandardMaterial({ color: 0x3a2512, roughness: 0.9 });
 
@@ -656,7 +708,7 @@ function buildExhibitMesh(shape, colorHex) {
       break;
     }
     case "bulb": {
-      const gMat = new THREE.MeshPhysicalMaterial({ color: colorHex, roughness: 0.08, metalness: 0.05, transmission: 0.38, emissive: colorHex, emissiveIntensity: 0.45 });
+      const gMat = new THREE.MeshStandardMaterial({ color: colorHex, roughness: 0.08, metalness: 0.05, emissive: colorHex, emissiveIntensity: 0.45, transparent: true, opacity: 0.82 });
       eSph([0, 0.1, 0], 0.75, gMat, 32);
       eBox([0, 0.1, 0], [0.045, 0.62, 0.045], new THREE.MeshStandardMaterial({ color: 0xffcc44, emissive: 0xffcc44, emissiveIntensity: 4 }));
       eCyl([0, -0.76, 0], 0.3, 0.36, 0.38, dark);
@@ -975,7 +1027,7 @@ function buildGrade11() {
 
 function buildGrade12() {
   const z = -130;
-  const glass = new THREE.MeshPhysicalMaterial({ color: 0x9fd8c6, roughness: 0.12, metalness: 0.05, transmission: 0.32, transparent: true, opacity: 0.42 });
+  const glass = new THREE.MeshStandardMaterial({ color: 0x9fd8c6, roughness: 0.12, metalness: 0.05, transparent: true, opacity: 0.42 });
   for (let i = 0; i < 7; i++)
     addPlane({ position: [-5.5 + i*1.8, 2.55, z - 4 - Math.abs(3-i)*0.55], rotation: [0, (i-3)*0.16, 0], scale: [1.15, 3.4, 1], material: darkGlass });
   for (let i = 0; i < 18; i++) {
@@ -1034,6 +1086,9 @@ let currentWing = wings[0];
 let activeRoom  = null;
 let pendingRoom = null;
 let lastTime    = performance.now();
+
+// Initialize lighting for starting wing
+updateLighting(currentWing);
 
 // ─── EVENT LISTENERS ──────────────────────────────────────────────────────────
 enterButton.addEventListener("click", () => {
@@ -1294,6 +1349,7 @@ function jumpFromHash() {
 
 // ─── MAIN LOOP ────────────────────────────────────────────────────────────────
 const fogTarget = new THREE.Color();
+
 function tick(now) {
   const dt = Math.min((now - lastTime) / 1000, 0.05);
   lastTime = now;
@@ -1323,11 +1379,26 @@ function tick(now) {
   progressFill.style.width = `${progress * 100}%`;
 
   const nearest = getNearestWing(camera.position.z);
-  if (!activeRoom && nearest !== currentWing) { currentWing = nearest; updateUi(nearest); }
+  if (!activeRoom && nearest !== currentWing) { 
+    currentWing = nearest; 
+    updateUi(nearest);
+    updateLighting(nearest);
+  }
 
+  // Update fog and lighting smoothly
   fogTarget.setHex(currentWing.fog);
   scene.fog.color.lerp(fogTarget, 0.04);
   scene.background.lerp(fogTarget, 0.025);
+
+  // Smooth lighting transitions
+  hemisphereLight.color.lerp(lightingState.hemiSkyTarget, 0.05);
+  hemisphereLight.groundColor.lerp(lightingState.hemiGndTarget, 0.05);
+  hemisphereLight.intensity = THREE.MathUtils.lerp(hemisphereLight.intensity, lightingState.hemiIntTarget, 0.08);
+  ambientLight.intensity = THREE.MathUtils.lerp(ambientLight.intensity, lightingState.ambIntTarget, 0.08);
+  playerLight.intensity = THREE.MathUtils.lerp(playerLight.intensity, lightingState.playerIntTarget, 0.06);
+  keyLight.intensity = THREE.MathUtils.lerp(keyLight.intensity, lightingState.keyIntTarget, 0.06);
+  fillLight.intensity = THREE.MathUtils.lerp(fillLight.intensity, lightingState.fillIntTarget, 0.06);
+  rimLight.intensity = THREE.MathUtils.lerp(rimLight.intensity, lightingState.rimIntTarget, 0.06);
 
   camera.position.y = 2.08 + Math.sin(now * 0.0011) * 0.035;
   camera.rotation.set(0, smoothYaw, 0);
