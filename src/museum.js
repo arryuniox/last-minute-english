@@ -6,7 +6,6 @@ const intro         = document.querySelector("#intro");
 const enterButton   = document.querySelector("#enterButton");
 const hud           = document.querySelector("#hud");
 const plaque        = document.querySelector("#plaque");
-const finalRef      = document.querySelector("#finalReflection");
 const wingLabel     = document.querySelector("#wingLabel");
 const wingTitle     = document.querySelector("#wingTitle");
 const wingTheme     = document.querySelector("#wingTheme");
@@ -302,11 +301,11 @@ scene.fog = new THREE.FogExp2(0x11100d, 0.018);
 const camera = new THREE.PerspectiveCamera(68, innerWidth / innerHeight, 0.1, 600);
 camera.position.set(0, 2.1, 13);
 
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 renderer.setSize(innerWidth, innerHeight);
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.type = THREE.BasicShadowMap;
 
 const museum = new THREE.Group();
 scene.add(museum);
@@ -409,10 +408,10 @@ const eCamera = new THREE.PerspectiveCamera(40, 2, 0.1, 50);
 eCamera.position.set(0, 0.9, 5);
 eCamera.lookAt(0, 0, 0);
 
-const eRenderer = new THREE.WebGLRenderer({ canvas: exhibitCanvas, antialias: true });
-eRenderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+const eRenderer = new THREE.WebGLRenderer({ canvas: exhibitCanvas, antialias: false });
+eRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 eRenderer.shadowMap.enabled = true;
-eRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
+eRenderer.shadowMap.type = THREE.BasicShadowMap;
 eRenderer.setSize(480, 240);
 
 eScene.add(new THREE.HemisphereLight(0xf5f0e8, 0x141210, 0.9));
@@ -909,7 +908,8 @@ function buildGrade12() {
 
 function buildFinalRoom() {
   const z = -166;
-  addPlane({ position: [0, 2.75, z - 7.5], rotation: [0, 0, 0], scale: [8.5, 4.8, 1], material: darkGlass });
+  const screenMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  addPlane({ position: [0, 2.75, z - 7.5], rotation: [0, 0, 0], scale: [8.5, 4.8, 1], material: screenMat });
   const silMat = new THREE.MeshStandardMaterial({ color: 0x030303, roughness: 0.4 });
   const sil = new THREE.Mesh(new THREE.CapsuleGeometry(0.42, 1.35, 8, 18), silMat);
   sil.position.set(0, 1.35, z - 7.15); sil.scale.set(1, 1.25, 0.22); museum.add(sil);
@@ -1003,7 +1003,7 @@ function updateUi(wing) {
     plaqueWorks.textContent = "Clickable Exhibits";
     plaqueTitle.textContent = "Look for lit objects";
     plaqueBody.textContent = "Click any glowing object to open its symbolism and thematic analysis. Press Escape or Return to Wing when finished.";
-    finalRef.hidden = true; return;
+    return;
   }
   wingLabel.textContent = wing.key;
   wingTitle.textContent = wing.title;
@@ -1011,7 +1011,6 @@ function updateUi(wing) {
   plaqueWorks.textContent = wing.works;
   plaqueTitle.textContent = wing.title;
   plaqueBody.textContent = wing.body;
-  finalRef.hidden = wing.key !== "Final Room";
 }
 
 function showModal({ title, kicker, body, room, kind, shape }) {
@@ -1107,9 +1106,18 @@ function tick(now) {
   const nearest = getNearestWing(camera.position.z);
   if (!activeRoom && nearest !== currentWing) { currentWing = nearest; updateUi(nearest); }
 
-  fogTarget.setHex(currentWing.fog);
-  scene.fog.color.lerp(fogTarget, 0.04);
-  scene.background.lerp(fogTarget, 0.025);
+  const isFinalRoom = currentWing.key === "Final Room";
+  if (isFinalRoom) {
+    fogTarget.setHex(0xffffff);
+    scene.fog.color.lerp(fogTarget, 0.075);
+    scene.background.lerp(fogTarget, 0.075);
+    playerLight.intensity = THREE.MathUtils.damp(playerLight.intensity, 2.4, 8, dt);
+  } else {
+    fogTarget.setHex(currentWing.fog);
+    scene.fog.color.lerp(fogTarget, 0.04);
+    scene.background.lerp(fogTarget, 0.025);
+    playerLight.intensity = THREE.MathUtils.damp(playerLight.intensity, 1.8, 8, dt);
+  }
 
   camera.position.y = 2.08 + Math.sin(now * 0.0011) * 0.035;
   camera.rotation.set(0, smoothYaw, 0);
